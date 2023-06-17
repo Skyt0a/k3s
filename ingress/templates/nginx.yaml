@@ -1,116 +1,116 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nginx-config
-data:
+# ---
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: nginx-config
+# data:
 
-  # file-like keys
-  server.conf: "
-map $http_upgrade $connection_upgrade {\n
-    default upgrade;\n
-    '' close;\n
-}\n
-\n
-server {\n
-    server_name {{ .Values.localDomain }}.{{ .Values.subDomain }}.bazin-jeremy.com;\n
-\n
-    listen 8443 ssl http2;\n
-    listen [::]:8443 ssl http2; # comment to disable IPv6\n
-\n
-    location / {\n
-        proxy_pass http://hello.hello.svc.cluster.local$request_uri;\n
-\n
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n
-        proxy_set_header X-Forwarded-Port $server_port;\n
-        proxy_set_header X-Forwarded-Scheme $scheme;\n
-        proxy_set_header X-Forwarded-Proto $scheme;\n
-        proxy_set_header X-Real-IP $remote_addr;\n
-        proxy_set_header Accept-Encoding \"\";\n
-        proxy_set_header Host $host;\n
-    \n
-        client_body_buffer_size 512k;\n
-        proxy_read_timeout 86400s;\n
-        client_max_body_size 0;\n
-\n
-        # Websocket\n
-        proxy_http_version 1.1;\n
-        proxy_set_header Upgrade $http_upgrade;\n
-        proxy_set_header Connection $connection_upgrade;\n
-    }\n
-\n
-    # Load the certificate files.\n
-    ssl_certificate         /etc/letsencrypt/live/bazin-jeremy.com/fullchain.pem;\n
-    ssl_certificate_key     /etc/letsencrypt/live/bazin-jeremy.com/privkey.pem;\n
-    ssl_trusted_certificate /etc/letsencrypt/live/bazin-jeremy.com/chain.pem;\n
-\n
-    # Load the Diffie-Hellman parameter.\n
-    ssl_dhparam /etc/letsencrypt/dhparams/dhparam.pem;\n
-\n
-    ssl_session_timeout 1d;\n
-    ssl_session_cache shared:MozSSL:10m; # about 40000 sessions\n
-    ssl_session_tickets off;\n
-\n
-    ssl_protocols TLSv1.2 TLSv1.3;\n
-    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;\n
-    ssl_prefer_server_ciphers off;\n
-}\n
-"
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deploy
-spec:
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: jonasal/nginx-certbot:latest
-        ports:
-        - containerPort: 8443
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        env:
-        - name: CERTBOT_EMAIL
-          value: nextcloud@bazin-jeremy.com
-        - name: DHPARAM_SIZE
-          value: "2048"
-        - name: ELLIPTIC_CURVE
-          value: secp256r1    
-        - name: RSA_KEY_SIZE
-          value: "2048"
-        - name: STAGING
-          value: "{{ .Values.letsEncryptStaging }}"
-        - name: DEBUG
-          value: "0"
-        volumeMounts:
-        - name: config
-          mountPath: /etc/nginx/user_conf.d/
-          readOnly: true
+#   # file-like keys
+#   server.conf: "
+# map $http_upgrade $connection_upgrade {\n
+#     default upgrade;\n
+#     '' close;\n
+# }\n
+# \n
+# server {\n
+#     server_name {{ .Values.localDomain }}.{{ .Values.subDomain }}.bazin-jeremy.com;\n
+# \n
+#     listen 8443 ssl http2;\n
+#     listen [::]:8443 ssl http2; # comment to disable IPv6\n
+# \n
+#     location / {\n
+#         proxy_pass http://hello.hello.svc.cluster.local$request_uri;\n
+# \n
+#         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n
+#         proxy_set_header X-Forwarded-Port $server_port;\n
+#         proxy_set_header X-Forwarded-Scheme $scheme;\n
+#         proxy_set_header X-Forwarded-Proto $scheme;\n
+#         proxy_set_header X-Real-IP $remote_addr;\n
+#         proxy_set_header Accept-Encoding \"\";\n
+#         proxy_set_header Host $host;\n
+#     \n
+#         client_body_buffer_size 512k;\n
+#         proxy_read_timeout 86400s;\n
+#         client_max_body_size 0;\n
+# \n
+#         # Websocket\n
+#         proxy_http_version 1.1;\n
+#         proxy_set_header Upgrade $http_upgrade;\n
+#         proxy_set_header Connection $connection_upgrade;\n
+#     }\n
+# \n
+#     # Load the certificate files.\n
+#     ssl_certificate         /etc/letsencrypt/live/bazin-jeremy.com/fullchain.pem;\n
+#     ssl_certificate_key     /etc/letsencrypt/live/bazin-jeremy.com/privkey.pem;\n
+#     ssl_trusted_certificate /etc/letsencrypt/live/bazin-jeremy.com/chain.pem;\n
+# \n
+#     # Load the Diffie-Hellman parameter.\n
+#     ssl_dhparam /etc/letsencrypt/dhparams/dhparam.pem;\n
+# \n
+#     ssl_session_timeout 1d;\n
+#     ssl_session_cache shared:MozSSL:10m; # about 40000 sessions\n
+#     ssl_session_tickets off;\n
+# \n
+#     ssl_protocols TLSv1.2 TLSv1.3;\n
+#     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;\n
+#     ssl_prefer_server_ciphers off;\n
+# }\n
+# "
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: nginx-deploy
+# spec:
+#   selector:
+#     matchLabels:
+#       app: nginx
+#   template:
+#     metadata:
+#       labels:
+#         app: nginx
+#     spec:
+#       containers:
+#       - name: nginx
+#         image: jonasal/nginx-certbot:latest
+#         ports:
+#         - containerPort: 8443
+#         resources:
+#           limits:
+#             memory: "128Mi"
+#             cpu: "500m"
+#         env:
+#         - name: CERTBOT_EMAIL
+#           value: nextcloud@bazin-jeremy.com
+#         - name: DHPARAM_SIZE
+#           value: "2048"
+#         - name: ELLIPTIC_CURVE
+#           value: secp256r1    
+#         - name: RSA_KEY_SIZE
+#           value: "2048"
+#         - name: STAGING
+#           value: "{{ .Values.letsEncryptStaging }}"
+#         - name: DEBUG
+#           value: "0"
+#         volumeMounts:
+#         - name: config
+#           mountPath: /etc/nginx/user_conf.d/
+#           readOnly: true
 
-      volumes:
-      - name: config
-        configMap:
-          name: nginx-config
+#       volumes:
+#       - name: config
+#         configMap:
+#           name: nginx-config
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-    - protocol: TCP
-      port: 8443
-      targetPort: 8443
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nginx-service
+# spec:
+#   selector:
+#     app: nginx
+#   ports:
+#     - protocol: TCP
+#       port: 8443
+#       targetPort: 8443

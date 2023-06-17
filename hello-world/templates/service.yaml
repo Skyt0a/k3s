@@ -14,7 +14,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-hello
-  cert-manager.io/issuer: "letsencrypt-staging"
+  cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
   rules:
   - host: hello.k3s.bazin-jeremy.com

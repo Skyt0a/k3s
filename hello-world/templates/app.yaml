@@ -8,12 +8,11 @@ spec:
       app: helloworld
   replicas: 2 # tells deployment to run 1 pods matching the template
   template: # create pods using pod definition in this template
-    metadata:
-      labels:
-        app: helloworld
     spec:
       containers:
       - name: helloworld
+        metadata:
+          app: helloworld
         image: karthequian/helloworld:latest
         ports:
         - containerPort: 80

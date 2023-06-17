@@ -4,7 +4,7 @@ metadata:
   name: hello
 spec:
   selector:
-    app.kubernetes.io/name: helloworld-deploy
+    app: helloworld
   ports:
     - protocol: TCP
       port: 8081

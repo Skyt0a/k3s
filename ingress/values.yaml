@@ -1,3 +1,4 @@
 subDomain: nextcloud
 localDomain: k3s
 letsEncryptStaging: 1
+controller.service.type: ClusterIP

@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: argocd-server-http
   namespace: argocd
-  annotations:
-    ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
   rules:
   - host: argocd.k3s.bazin-jeremy.com

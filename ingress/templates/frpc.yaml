@@ -15,14 +15,14 @@ dial_server_timeout = 60\n
 \n
 [dev-k3s-http]\n
 type = http\n
-local_ip = nginx-ingress-nginx-controller.ingress.svc.cluster.local\n
+local_ip = ingress-controller-ingress-nginx-controller.ingress.svc.cluster.local\n
 local_port = 80\n
 remote_port = 80\n
 subdomain = {{ .Values.localDomain }}\n
 \n
 [dev-k3s-https]\n
 type = https\n
-local_ip = nginx-ingress-nginx-controller.ingress.svc.cluster.local\n
+local_ip = ingress-controller-ingress-nginx-controller.ingress.svc.cluster.local\n
 local_port = 443\n
 remote_port = 443\n
 subdomain = {{ .Values.localDomain }}\n

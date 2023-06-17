@@ -11,3 +11,24 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
  kubectl port-forward svc/argocd-server -n argocd 8080:443
   kubectl port-forward svc/hello -n hello 80:80
+
+
+  apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-manager
+spec:
+  destination:
+    name: ''
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: argocd
+    repoURL: 'https://github.com/Skyt0a/k3s.git'
+    targetRevision: HEAD
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false

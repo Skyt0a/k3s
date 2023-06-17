@@ -18,16 +18,18 @@ type = http\n
 local_ip = ingress-controller-ingress-nginx-controller.ingress.svc.cluster.local\n
 local_port = 80\n
 remote_port = 80\n
-subdomain = {{ .Values.localDomain }}\n
+subdomain = *\n
+
+[dev-k3s-https]\n
+type = https\n
+local_ip = ingress-controller-ingress-nginx-controller.ingress.svc.cluster.local\n
+local_port = 443\n
+remote_port = 443\n
+subdomain = *\n
 \n
 "
 
-# [dev-k3s-https]\n
-# type = https\n
-# local_ip = ingress-controller-ingress-nginx-controller.ingress.svc.cluster.local\n
-# local_port = 443\n
-# remote_port = 443\n
-# subdomain = {{ .Values.localDomain }}\n
+
 ---
 apiVersion: apps/v1
 kind: Deployment

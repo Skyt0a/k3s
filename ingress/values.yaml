@@ -1,6 +1,4 @@
-subDomain: nextcloud
-localDomain: k3s
-letsEncryptStaging: 1
+subDomain: k3s
 
 ingress-nginx:
   controller:

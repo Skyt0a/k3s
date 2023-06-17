@@ -57,61 +57,61 @@ server {\n
 }\n
 "
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deploy
-spec:
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: jonasal/nginx-certbot:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        env:
-        - name: CERTBOT_EMAIL
-          value: nextcloud@bazin-jeremy.com
-        - name: DHPARAM_SIZE
-          value: 2048
-        - name: ELLIPTIC_CURVE
-          value: secp256r1    
-        - name: RSA_KEY_SIZE
-          value: 2048
-        - name: STAGING
-          value: {{ .Values.letsEncryptStaging }}
-        - name: DEBUG
-          value: 1
-        volumeMounts:
-        - name: config
-          mountPath: /etc/nginx/user_conf.d/
-          readOnly: true
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: nginx-deploy
+# spec:
+#   selector:
+#     matchLabels:
+#       app: nginx
+#   template:
+#     metadata:
+#       labels:
+#         app: nginx
+#     spec:
+#       containers:
+#       - name: nginx
+#         image: jonasal/nginx-certbot:latest
+#         resources:
+#           limits:
+#             memory: "128Mi"
+#             cpu: "500m"
+#         env:
+#         - name: CERTBOT_EMAIL
+#           value: nextcloud@bazin-jeremy.com
+#         - name: DHPARAM_SIZE
+#           value: 2048
+#         - name: ELLIPTIC_CURVE
+#           value: secp256r1    
+#         - name: RSA_KEY_SIZE
+#           value: 2048
+#         - name: STAGING
+#           value: {{ .Values.letsEncryptStaging }}
+#         - name: DEBUG
+#           value: 1
+#         volumeMounts:
+#         - name: config
+#           mountPath: /etc/nginx/user_conf.d/
+#           readOnly: true
 
-      volumes:
-      - name: config
-        configMap:
-          name: nginx-config
+#       volumes:
+#       - name: config
+#         configMap:
+#           name: nginx-config
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app.kubernetes.io/name: nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-    - protocol: TCP
-      port: 443
-      targetPort: 443
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: nginx-service
+# spec:
+#   selector:
+#     app.kubernetes.io/name: nginx
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 80
+#     - protocol: TCP
+#       port: 443
+#       targetPort: 443

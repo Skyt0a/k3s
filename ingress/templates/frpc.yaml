@@ -4,12 +4,9 @@ kind: ConfigMap
 metadata:
   name: frpc-config
 data:
-  # property-like keys; each key maps to a simple value
-  player_initial_lives: "3"
-  ui_properties_file_name: "user-interface.properties"
 
   # file-like keys
-  "frpc.ini": "
+  frpc.ini: "
 [common]\n
 server_addr = {{ .Values.subDomain }}.bazin-jeremy.com\n
 server_port = 7000\n
@@ -53,7 +50,7 @@ spec:
             cpu: "500m"
         volumeMounts:
         - name: config
-          mountPath: /etc/frp/frpc.ini
+          mountPath: /etc/frp/
           readOnly: true
 
       volumes:

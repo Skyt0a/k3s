@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: hello
+  cert-manager.io/issuer: "letsencrypt-staging"
 spec:
   selector:
     app: helloworld

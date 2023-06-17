@@ -21,3 +21,4 @@ spec:
 #   - hosts:
 #     - internal.path.to.argocd.io
 #     secretName: your-certificate-name
+  ingressClassName: nginx

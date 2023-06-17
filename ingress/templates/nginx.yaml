@@ -91,7 +91,7 @@ spec:
         - name: STAGING
           value: "{{ .Values.letsEncryptStaging }}"
         - name: DEBUG
-          value: "1"
+          value: "0"
         volumeMounts:
         - name: config
           mountPath: /etc/nginx/user_conf.d/

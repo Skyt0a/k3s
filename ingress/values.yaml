@@ -3,4 +3,5 @@ localDomain: k3s
 letsEncryptStaging: 1
 controller:
   service:
+    enabled: false
     type: ClusterIP

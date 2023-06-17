@@ -13,14 +13,14 @@ server_port = 7000\n
 tls_enable = true\n
 dial_server_timeout = 60\n
 \n
-[nextcloud-dev-http]\n
+[dev-k3s-http]\n
 type = http\n
 local_ip = hello.hello.svc.cluster.local\n
 local_port = 8081\n
 remote_port = 80\n
 subdomain = dev\n
 \n
-[nextcloud-dev-https]\n
+[dev-k3s-https]\n
 type = https\n
 local_ip = localhost\n
 local_port = 8443\n

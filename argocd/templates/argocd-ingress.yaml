@@ -5,10 +5,10 @@ metadata:
   namespace: argocd
 spec:
   rules:
-  - host: argocd.k3s.nextcloud.bazin-jeremy.com
+  - host: k3s.nextcloud.bazin-jeremy.com
     http:
       paths:
-      - path: /
+      - path: /argocd
         pathType: Prefix
         backend:
           service:

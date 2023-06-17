@@ -73,6 +73,8 @@ spec:
       containers:
       - name: nginx
         image: jonasal/nginx-certbot:latest
+        ports:
+        - containerPort: 8443
         resources:
           limits:
             memory: "128Mi"
@@ -110,5 +112,5 @@ spec:
     app.kubernetes.io/name: nginx
   ports:
     - protocol: TCP
-      port: 443
-      targetPort: 443
+      port: 8443
+      targetPort: 8443

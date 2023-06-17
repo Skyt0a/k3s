@@ -8,7 +8,7 @@ data:
   # file-like keys
   frpc.ini: "
 [common]\n
-server_addr = {{ .Values.subDomain }}.bazin-jeremy.com\n
+server_addr = bazin-jeremy.com\n
 server_port = 7000\n
 tls_enable = true\n
 dial_server_timeout = 60\n
@@ -18,14 +18,14 @@ type = http\n
 local_ip = ingress-controller-ingress-nginx-controller.ingress.svc.cluster.local\n
 local_port = 80\n
 remote_port = 80\n
-subdomain = *\n
+subdomain = {{ .Value.subDomain }}\n
 
 [dev-k3s-https]\n
 type = https\n
 local_ip = ingress-controller-ingress-nginx-controller.ingress.svc.cluster.local\n
 local_port = 443\n
 remote_port = 443\n
-subdomain = *\n
+subdomain = {{ .Value.subDomain }}\n
 \n
 "
 

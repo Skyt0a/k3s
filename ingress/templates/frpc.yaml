@@ -18,14 +18,14 @@ type = http\n
 local_ip = hello.hello.svc.cluster.local\n
 local_port = 8081\n
 remote_port = 80\n
-subdomain = dev\n
+subdomain = {{ .Values.localDomain }}\n
 \n
 [dev-k3s-https]\n
 type = https\n
 local_ip = localhost\n
 local_port = 8443\n
 remote_port = 443\n
-subdomain = dev\n
+subdomain = {{ .Values.localDomain }}\n
 "
 ---
 apiVersion: apps/v1

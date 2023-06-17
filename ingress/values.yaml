@@ -1,1 +1,2 @@
-subDomain: k3s
+subDomain: nextcloud
+localDomain: k3s

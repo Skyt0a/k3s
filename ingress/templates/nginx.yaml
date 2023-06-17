@@ -109,7 +109,7 @@ metadata:
   name: nginx-service
 spec:
   selector:
-    app.kubernetes.io/app: nginx
+    app: nginx
   ports:
     - protocol: TCP
       port: 8443

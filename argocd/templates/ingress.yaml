@@ -17,7 +17,7 @@ spec:
             name: argocd-server
             port:
               name: http
-  tls:
-  - hosts:
-    - internal.path.to.argocd.io
-    secretName: your-certificate-name
+#   tls:
+#   - hosts:
+#     - internal.path.to.argocd.io
+#     secretName: your-certificate-name

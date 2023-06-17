@@ -34,7 +34,7 @@ subdomain = dev2\n
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fprc
+  name: fprc-deploy
 spec:
   selector:
     matchLabels:
@@ -60,4 +60,6 @@ spec:
       - name: config
         configMap:
           name: frpc-config
+
+
 

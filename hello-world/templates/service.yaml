@@ -16,7 +16,7 @@ metadata:
   name: ingress-myservicea
 spec:
   rules:
-  - host: k3s.bazin-jeremy.com
+  - host: hello.k3s.bazin-jeremy.com
     http:
       paths:
       - path: /

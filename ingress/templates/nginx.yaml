@@ -81,15 +81,15 @@ spec:
         - name: CERTBOT_EMAIL
           value: nextcloud@bazin-jeremy.com
         - name: DHPARAM_SIZE
-          value: 2048
+          value: "2048"
         - name: ELLIPTIC_CURVE
           value: secp256r1    
         - name: RSA_KEY_SIZE
-          value: 2048
+          value: "2048"
         - name: STAGING
-          value: {{ .Values.letsEncryptStaging }}
+          value: "{{ .Values.letsEncryptStaging }}"
         - name: DEBUG
-          value: 1
+          value: "1"
         volumeMounts:
         - name: config
           mountPath: /etc/nginx/user_conf.d/

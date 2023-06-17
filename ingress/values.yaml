@@ -1,4 +1,2 @@
 subDomain: nextcloud
 localDomain: k3s
-
-controller.service.type: clusterIP

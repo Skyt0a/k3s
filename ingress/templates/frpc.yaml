@@ -9,27 +9,27 @@ data:
   ui_properties_file_name: "user-interface.properties"
 
   # file-like keys
-  "frpc.ini": |
-[common]
-server_addr = {{ .Values.subDomain }}.bazin-jeremy.com
-server_port = 7000
-tls_enable = true
-dial_server_timeout = 60
-
-[nextcloud-dev-http]
-type = http
-local_ip = localhost
-local_port = 80
-remote_port = 80
-subdomain = dev2
-
-[nextcloud-dev-https]
-type = https
-local_ip = localhost
-local_port = 8443
-remote_port = 443
-subdomain = dev2
-
+  "frpc.ini": "
+[common]\n
+server_addr = {{ .Values.subDomain }}.bazin-jeremy.com\n
+server_port = 7000\n
+tls_enable = true\n
+dial_server_timeout = 60\n
+\n
+[nextcloud-dev-http]\n
+type = http\n
+local_ip = localhost\n
+local_port = 80\n
+remote_port = 80\n
+subdomain = dev2\n
+\n
+[nextcloud-dev-https]\n
+type = https\n
+local_ip = localhost\n
+local_port = 8443\n
+remote_port = 443\n
+subdomain = dev2\n
+"
 ---
 apiVersion: apps/v1
 kind: Deployment

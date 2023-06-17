@@ -4,3 +4,8 @@ ingress-nginx:
   controller:
     service:
       type: ClusterIP
+    admissionWebhooks:
+      enabled: true
+      issuerRef:
+        name: "issuer"
+        kind: "ClusterIssuer"

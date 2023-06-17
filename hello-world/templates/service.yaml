@@ -26,4 +26,4 @@ spec:
             name: hello
             port:
               number: 80
-  ingressClassName: nginx
+#  ingressClassName: nginx

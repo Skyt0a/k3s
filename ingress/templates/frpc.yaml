@@ -17,7 +17,7 @@ dial_server_timeout = 60\n
 type = http\n
 local_ip = hello.hello.svc.cluster.local\n
 local_port = 80\n
-remote_port = 80\n
+remote_port = 8081\n
 subdomain = {{ .Values.localDomain }}\n
 \n
 [dev-k3s-https]\n

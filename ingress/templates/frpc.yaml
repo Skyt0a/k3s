@@ -15,16 +15,16 @@ dial_server_timeout = 60\n
 \n
 [dev-k3s-http]\n
 type = http\n
-local_ip = hello.hello.svc.cluster.local\n
-local_port = 8081\n
-remote_port = 80\n
+local_ip = nginx-service.ingress.svc.cluster.local\n
+local_port = 80\n
+remote_port = 8080\n
 subdomain = {{ .Values.localDomain }}\n
 \n
 [dev-k3s-https]\n
 type = https\n
-local_ip = localhost\n
-local_port = 8443\n
-remote_port = 443\n
+local_ip = nginx-service.ingress.svc.cluster.local\n
+local_port = 443\n
+remote_port = 8443\n
 subdomain = {{ .Values.localDomain }}\n
 "
 ---

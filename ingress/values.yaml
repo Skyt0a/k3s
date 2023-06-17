@@ -1,2 +1,3 @@
 subDomain: nextcloud
 localDomain: k3s
+letsEncryptStaging: 1

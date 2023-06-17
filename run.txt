@@ -1,4 +1,4 @@
-docker run --privileged --name k3s-server-1 --hostname k3s-server-1 -p 6443:6443 -p 443 -d rancher/k3s:v1.27.3-rc1-k3s1 server
+docker run --privileged --name k3s-server-1 --hostname k3s-server-1 -p 6443:6443 -d rancher/k3s:v1.27.3-rc1-k3s1 server
 docker cp k3s-server-1:/etc/rancher/k3s/k3s.yaml ./kube-config
 export KUBECONFIG=kube-config
 

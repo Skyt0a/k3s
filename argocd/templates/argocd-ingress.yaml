@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: argocd-ingress-http
   namespace: argocd
+  annotation:
+    kubernetes.io/ingress.class: contour-internal
+    ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
   rules:
   - host: k3s.nextcloud.bazin-jeremy.com

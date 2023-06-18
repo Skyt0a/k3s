@@ -16,7 +16,7 @@ metadata:
   name: ingress-hello
   annotations:
     ingressClassName: nginx
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
   tls:
   - hosts:

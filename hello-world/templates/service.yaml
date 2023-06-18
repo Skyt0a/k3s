@@ -18,6 +18,10 @@ metadata:
     ingressClassName: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
+  tls:
+  - hosts:
+    - hello.k3s.bazin-jeremy.com
+    secretName: hello-tls
   rules:
   - host: hello.k3s.bazin-jeremy.com
     http:

@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/hook: PostSync
     ingressClassName: nginx
-    cert-manager.io/cluster-issuer: "letsencrypt"
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   rules:
   - host: argocd.k3s.bazin-jeremy.com
@@ -22,5 +22,4 @@ spec:
   tls:
   - hosts:
     - argocd.k3s.bazin-jeremy.com
-    secretName:argocd-tls
-  ingressClassName: nginx
+    secretName: argocd-tls

@@ -10,9 +10,6 @@ metadata:
     argocd.argoproj.io/sync-wave: "10"
 spec:
   project: default
-  metadata:
-    annotations:
-      argocd.argoproj.io/sync-wave: "10"
   source:
     repoURL: https://github.com/Skyt0a/k3s.git
     targetRevision: HEAD

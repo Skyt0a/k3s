@@ -4,3 +4,6 @@ ingress-nginx:
   controller:
     service:
       type: ClusterIP
+
+cert-manager:
+  installCRDs: true

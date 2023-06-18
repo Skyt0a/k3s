@@ -26,3 +26,4 @@ spec:
   - hosts:
     - argocd.k3s.bazin-jeremy.com
     secretName: argocd-tls
+  ingressClassName: nginx

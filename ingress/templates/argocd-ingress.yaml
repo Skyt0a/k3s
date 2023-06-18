@@ -1,22 +1,26 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: argocd-server-http
-#   namespace: argocd
-# spec:
-#   rules:
-#   - host: argocd.k3s.bazin-jeremy.com
-#     http:
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: argocd-server
-#             port:
-#               name: http
-# #   tls:
-# #   - hosts:
-# #     - internal.path.to.argocd.io
-# #     secretName: your-certificate-name
-#   ingressClassName: nginx
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-http
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    ingressClassName: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  rules:
+  - host: argocd.k3s.bazin-jeremy.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              name: http
+  tls:
+  - hosts:
+    - argocd.k3s.bazin-jeremy.com
+    secretName:argocd-tls
+  ingressClassName: nginx

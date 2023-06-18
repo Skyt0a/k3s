@@ -1,4 +1,5 @@
 subDomain: k3s
+letsEncryptProd: false
 
 ingress-nginx:
   controller:

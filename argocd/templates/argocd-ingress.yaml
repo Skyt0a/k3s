@@ -7,6 +7,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "10"
     ingressClassName: nginx
     cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   rules:
   - host: argocd.k3s.bazin-jeremy.com
@@ -18,7 +20,7 @@ spec:
           service:
             name: argocd-server
             port:
-              name: http
+              name: https
   tls:
   - hosts:
     - argocd.k3s.bazin-jeremy.com

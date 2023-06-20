@@ -4,7 +4,6 @@ metadata:
   name: argocd-ingress
   annotations:
     argocd.argoproj.io/sync-wave: "10"
-    ingressClassName: nginx
     cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"

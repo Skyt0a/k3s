@@ -15,7 +15,6 @@ kind: Ingress
 metadata:
   name: ingress-hello
   annotations:
-    ingressClassName: nginx
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   tls:

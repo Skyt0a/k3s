@@ -13,10 +13,10 @@ spec:
   source:
     repoURL: https://github.com/Skyt0a/k3s.git
     targetRevision: HEAD
-    path: ingress-controller
+    path: ingress
   destination:
     server: https://kubernetes.default.svc
-    namespace: ingress
+    namespace: ingress-controller
   syncPolicy:
     automated:
       prune: true

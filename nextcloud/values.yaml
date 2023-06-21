@@ -3,7 +3,8 @@ nextcloud:
     host: nextcloud.k3s.bazin-jeremy.com
     updatae: 1
   persistence:
-    storageClass: local-path
+    enabled: true
+    storageClass: local-data-path
   ingress:
     enabled: true
     annotations:

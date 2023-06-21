@@ -4,6 +4,6 @@ metadata:
   name: local-data-path
 provisioner: cluster.local/local-path-provisioner
 parameters:
-  nodePath: /data/
+  nodePath: /data
 volumeBindingMode: WaitForFirstConsumer
-reclaimPolicy: Retain
+reclaimPolicy: Immediate

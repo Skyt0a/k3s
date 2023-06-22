@@ -15,28 +15,28 @@ dial_server_timeout = 60\n
 \n
 [dev-k3s-http]\n
 type = http\n
-local_ip = ingress-nginx-controller.ingress-controller.svc.cluster.local\n
+local_ip = ingress-nginx-controller.network.svc.cluster.local\n
 local_port = 80\n
 remote_port = 80\n
 custom_domains = k3s.bazin-jeremy.com\n
 
 [dev-k3s-https]\n
 type = https\n
-local_ip = ingress-nginx-controller.ingress-controller.svc.cluster.local\n
+local_ip = ingress-nginx-controller.network.svc.cluster.local\n
 local_port = 443\n
 remote_port = 443\n
 custom_domains = k3s.bazin-jeremy.com\n
 
 [dev-k3s-wildcard-http]\n
 type = http\n
-local_ip = ingress-nginx-controller.ingress-controller.svc.cluster.local\n
+local_ip = ingress-nginx-controller.network.svc.cluster.local\n
 local_port = 80\n
 remote_port = 80\n
 custom_domains = *.k3s.bazin-jeremy.com\n
 
 [dev-k3s-wildcard-https]\n
 type = https\n
-local_ip = ingress-nginx-controller.ingress-controller.svc.cluster.local\n
+local_ip = ingress-nginx-controller.network.svc.cluster.local\n
 local_port = 443\n
 remote_port = 443\n
 custom_domains = *.k3s.bazin-jeremy.com\n

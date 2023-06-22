@@ -18,9 +18,9 @@ spec:
     server: https://kubernetes.default.svc
     namespace: nextcloud
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: false
+    # automated:
+    #   prune: true
+    #   selfHeal: false
     syncOptions:
       - CreateNamespace=true
   

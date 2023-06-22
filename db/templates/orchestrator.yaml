@@ -23,21 +23,24 @@ metadata:
   name: orchestrator-svc
 spec:
   selector:
-    matchLabels:
-      app: orchestrator
+    app: orchestrator
   ports:
-    - protocol: HTTP
+    - protocol: TCP
       port: 3000
-      targetPort: 80
+      targetPort: 3000
 
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: orchestrator-ingress
+  name: ingress-orchestrator
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
+  tls:
+  - hosts:
+    - orchestrator.k3s.bazin-jeremy.com
+    secretName: orchestrator-tls
   rules:
   - host: orchestrator.k3s.bazin-jeremy.com
     http:
@@ -48,9 +51,5 @@ spec:
           service:
             name: orchestrator-svc
             port:
-              name: 80
-  tls:
-  - hosts:
-    - orchestrator.k3s.bazin-jeremy.com
-    secretName: orchestrator-tls
+              number: 80
   ingressClassName: nginx

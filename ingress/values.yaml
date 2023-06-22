@@ -3,7 +3,6 @@ letsEncryptProd: false
 
 ingress-nginx:
   controller:
-    fullname: nginx-controller
     service:
       type: ClusterIP
 

@@ -1,14 +1,20 @@
-docker run --privileged --name k3s-server-1 --hostname k3s-server-1 -p 6443:6443 -v //e/raspberry/kubernetes/data:/data -d rancher/k3s:v1.27.3-rc1-k3s1 server --disable=traefik --disable=servicelb
-sleep 1
+docker run --privileged --name k3s-server-1 --net=k3s --hostname k3s-server-1 -p 6443:6443 -v //e/raspberry/kubernetes/data/node-1:/data -d rancher/k3s:latest server --disable=traefik --disable=servicelb
+sleep 15
 docker cp k3s-server-1:/etc/rancher/k3s/k3s.yaml ./kube-config
+docker cp k3s-server-1:/var/lib/rancher/k3s/server/token ./token
 export KUBECONFIG=kube-config
 
+docker run -d --privileged --name k3s-server-2 --net=k3s --hostname k3s-server-2 -v //e/raspberry/kubernetes/data/node-2:/data -e K3S_TOKEN=$(cat token) -e K3S_URL=https://k3s-server-1:6443 rancher/k3s:latest agent
+
+sleep 1
+kubectl get nodes
 
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
 kubectl apply -n argocd -f ./init-argocd.yaml
+
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
 
 
-export KUBECONFIG=kube-config
 kubectl port-forward svc/argocd-server -n argocd 8080:443

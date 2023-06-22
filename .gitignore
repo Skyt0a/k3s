@@ -2,3 +2,4 @@ docker-compose.yaml
 helm.exe
 kubectl.exe
 kube-config
+token

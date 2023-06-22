@@ -1,5 +1,5 @@
 docker run --privileged --name k3s-server-1 --net=k3s --hostname k3s-server-1 -p 6443:6443 -v //e/raspberry/kubernetes/data/node-1:/data -d rancher/k3s:latest server --disable=traefik --disable=servicelb
-sleep 15
+sleep 5
 docker cp k3s-server-1:/etc/rancher/k3s/k3s.yaml ./kube-config
 docker cp k3s-server-1:/var/lib/rancher/k3s/server/token ./token
 export KUBECONFIG=kube-config

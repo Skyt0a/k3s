@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestrator
+spec:
+  selector:
+    matchLabels:
+      app: orchestrator
+  template:
+    metadata:
+      labels:
+        app: orchestrator
+    spec:
+      containers:
+      - name: orchestrator
+        image: openarkcode/orchestrator:latest
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestrator-svc
+spec:
+  selector:
+    matchLabels:
+      app: orchestrator
+  ports:
+    - protocol: HTTP
+      port: 3000
+      targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: orchestrator-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  rules:
+  - host: orchestrator.k3s.bazin-jeremy.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: orchestrator-svc
+            port:
+              name: 80
+  tls:
+  - hosts:
+    - orchestrator.k3s.bazin-jeremy.com
+    secretName: orchestrator-tls
+  ingressClassName: nginx

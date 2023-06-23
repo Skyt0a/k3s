@@ -1,55 +1,55 @@
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: orchestrator
-spec:
-  selector:
-    matchLabels:
-      app: orchestrator
-  template:
-    metadata:
-      labels:
-        app: orchestrator
-    spec:
-      containers:
-      - name: orchestrator
-        image: openarkcode/orchestrator:latest
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: orchestrator
+# spec:
+#   selector:
+#     matchLabels:
+#       app: orchestrator
+#   template:
+#     metadata:
+#       labels:
+#         app: orchestrator
+#     spec:
+#       containers:
+#       - name: orchestrator
+#         image: openarkcode/orchestrator:latest
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: orchestrator-svc
-spec:
-  selector:
-    app: orchestrator
-  ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: orchestrator-svc
+# spec:
+#   selector:
+#     app: orchestrator
+#   ports:
+#     - protocol: TCP
+#       port: 3000
+#       targetPort: 3000
 
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingress-orchestrator
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt"
-spec:
-  tls:
-  - hosts:
-    - orchestrator.k3s.bazin-jeremy.com
-    secretName: orchestrator-tls
-  rules:
-  - host: orchestrator.k3s.bazin-jeremy.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: orchestrator-svc
-            port:
-              number: 80
-  ingressClassName: nginx
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: ingress-orchestrator
+#   annotations:
+#     cert-manager.io/cluster-issuer: "letsencrypt"
+# spec:
+#   tls:
+#   - hosts:
+#     - orchestrator.k3s.bazin-jeremy.com
+#     secretName: orchestrator-tls
+#   rules:
+#   - host: orchestrator.k3s.bazin-jeremy.com
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: orchestrator-svc
+#             port:
+#               number: 80
+#   ingressClassName: nginx

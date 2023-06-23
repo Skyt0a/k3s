@@ -20,6 +20,10 @@ spec:
           value: root
         - name: ORC_TOPOLOGY_PASSWORD
           value: password
+        - name: ORC_USER
+          value: root
+        - name: ORC_PASSWORD
+          value: password
 
 ---
 apiVersion: v1

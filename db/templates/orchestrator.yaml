@@ -16,11 +16,9 @@ spec:
       - name: orchestrator
         image: openarkcode/orchestrator:latest
         env:
-        - name: ORC_DB_HOST
-          value: mysql-1.db.svc.cluster.local
-        - name: ORC_DB_USER
+        - name: ORC_TOPOLOGY_USER
           value: root
-        - name: ORC_DB_PASSWORD
+        - name: ORC_TOPOLOGY_PASSWORD
           value: password
 
 ---

@@ -22,3 +22,9 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 kubectl port-forward svc/orchestrator-svc -n db 3000:3000
 kubectl -n db exec -it mysql-1-7ddb9fddd7-qzgh8 -- bash
+
+CREATE USER 'orc_client_user'@'%' IDENTIFIED BY 'orc_client_password';
+GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orc_client_user'@'%';
+GRANT SELECT ON meta.* TO 'orc_client_user'@'%';
+GRANT SELECT ON ndbinfo.processes TO 'orc_client_user'@'%'; -- Only for NDB Cluster
+GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user'@'%'; -- Only for Group Replication / InnoDB cluster

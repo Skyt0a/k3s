@@ -37,12 +37,18 @@ spec:
         - name: mysql-config
           mountPath: /etc/mysql/conf.d/
           readOnly: true
+        - name: mysql-start-config
+          mountPath: /docker-entrypoint-initdb.d/
+          readOnly: true
         
         
       volumes:
       - name: mysql-config
         configMap:
           name: mysql-config
+      - name: mysql-start-config
+        configMap:
+          name: mysql-start-config-1
 
       #   volumeMounts:
       #   - name: mysql-persistent-storage

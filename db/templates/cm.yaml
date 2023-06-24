@@ -2,11 +2,69 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mysql-config
+  name: mysql-config-1
 data:
 
   # file-like keys
   my.cnf: "\n\
 [mysqld]
 bind-address            = 0.0.0.0\n\
+server-id = 1
+log_bin = /var/log/mysql/mysql-bin.log
 "
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config-2
+data:
+
+  # file-like keys
+  my.cnf: "\n\
+[mysqld]
+bind-address            = 0.0.0.0\n\
+server-id = 2
+log_bin = /var/log/mysql/mysql-bin.log
+"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-master-config
+data:
+
+  # file-like keys
+  orch.sql: "\n\
+CREATE USER 'orc_client_user'@'%' IDENTIFIED BY 'orc_client_password';\n\
+GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orc_client_user'@'%';\n\
+GRANT SELECT ON meta.* TO 'orc_client_user'@'%';\n\
+GRANT SELECT ON ndbinfo.processes TO 'orc_client_user'@'%'; -- Only for NDB Cluster\n\
+GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user'@'%'; -- Only for Group Replication / InnoDB cluster\n\
+\n\
+CREATE USER 'replicator'@'%' IDENTIFIED BY 'password';\n\
+GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';\n\
+"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-slave-config
+data:
+
+  # file-like keys
+  orch.sql: "\n\
+CREATE USER 'orc_client_user'@'%' IDENTIFIED BY 'orc_client_password';\n\
+GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orc_client_user'@'%';\n\
+GRANT SELECT ON meta.* TO 'orc_client_user'@'%';\n\
+GRANT SELECT ON ndbinfo.processes TO 'orc_client_user'@'%'; -- Only for NDB Cluster\n\
+GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user'@'%'; -- Only for Group Replication / InnoDB cluster\n\
+\n\
+STOP SLAVE;\n\
+CHANGE MASTER TO MASTER_HOST='mysql-1.db.svc.cluster.local', MASTER_USER='replicator', MASTER_PASSWORD='password';\n\
+START SLAVE;
+"
+#MASTER_LOG_FILE='mysql-bin.003577',
+    #-> MASTER_LOG_POS=141378624;\n\

@@ -15,7 +15,7 @@ spec:
       containers:
       - name: orchestrator
         image: openarkcode/orchestrator:latest
-        command: ["cp /etc/orchestration/* /etc/ && /entrypoint.sh"]
+        command: ["cp /etc/orchestration/* /etc/", "/entrypoint.sh"]
         volumeMounts:
         - name: orch-config
           mountPath: /etc/orchestration

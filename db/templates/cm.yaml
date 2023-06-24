@@ -7,5 +7,6 @@ data:
 
   # file-like keys
   my.cnf: "\n\
+[mysqld]
 bind-address            = 0.0.0.0\n\
 "

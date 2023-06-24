@@ -14,6 +14,8 @@ GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user
 \n\
 CREATE USER 'replicator'@'%' IDENTIFIED BY 'password';\n\
 GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';\n\
+STOP SLAVE;\n\
+CHANGE MASTER TO MASTER_HOST='mysql-1.db.svc.cluster.local', MASTER_USER='replicator', MASTER_PASSWORD='password', GET_MASTER_PUBLIC_KEY=1;\n\
 "
 
 ---
@@ -56,6 +58,7 @@ bind-address            = 0.0.0.0\n\
 server-id = {{ .name }}\n\
 log_bin = ~/mysql-bin.log\n\
 "
+  hostname: "mysql-{{ .name }}.db.svc.cluster.local"
 
 ---
 apiVersion: apps/v1
@@ -89,6 +92,10 @@ spec:
           readOnly: true
         - name: sql-start
           mountPath: /docker-entrypoint-initdb.d/
+          readOnly: true
+        - name: config
+          mountPath: /etc/hostname
+          subPath: hostname
           readOnly: true
         
         

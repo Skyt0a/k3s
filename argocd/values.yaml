@@ -1,4 +1,4 @@
-argo-cd:
+"argo-cd":
   # Enabled all metric scrap by prometheus
   controller.metrics.enabled: true
 

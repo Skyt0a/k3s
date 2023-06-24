@@ -71,4 +71,4 @@ metadata:
 data:
 
   # file-like keys
-  orchestrator.conf.json: "{  \"HostnameResolveMethod\": \"\",  \"MySQLHostnameResolveMethod\": \"\" }"
+  orchestrator.conf.json: "{  \"HostnameResolveMethod\": \"\",  \"MySQLHostnameResolveMethod\": \"\", \"Debug\": true, \"ListenAddress\": \":3000\", \"MySQLTopologyUser\": \"orchestrator\", \"MySQLTopologyPassword\": \"orchestrator\", \"MySQLOrchestratorHost\": \"db\", \"MySQLOrchestratorPort\": 3306, \"MySQLOrchestratorDatabase\": \"orchestrator\", \"MySQLOrchestratorUser\": \"orc_server_user\", \"MySQLOrchestratorPassword\": \"orc_server_password\" }"

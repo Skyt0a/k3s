@@ -14,8 +14,6 @@ GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user
 \n\
 CREATE USER 'replicator'@'%' IDENTIFIED BY 'password';\n\
 GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';\n\
-STOP SLAVE;\n\
-CHANGE MASTER TO MASTER_HOST='mysql-1.db.svc.cluster.local', MASTER_USER='replicator', MASTER_PASSWORD='password', GET_MASTER_PUBLIC_KEY=1;\n\
 "
 
 ---

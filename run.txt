@@ -11,16 +11,19 @@ kubectl get nodes
 
 kubectl create namespace argocd
 ./helm repo add argo https://argoproj.github.io/argo-helm
-./helm install argo-cd argo/argo-cd --version 5.36.7
+./helm install -n argocd argo-cd argo/argo-cd --version 5.36.7
 #kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 kubectl apply -n argocd -f ./init-argocd.yaml
 
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
+kubectl -n base-monitoring get secret grafana -o jsonpath="{.data.admin-password}" | base64 --decode
 
 
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl port-forward svc/argo-cd-argocd-server -n argocd 8080:443
 kubectl port-forward svc/orchestrator-svc -n db 3000:3000
+kubectl port-forward svc/prometheus-server -n base-monitoring 3000:80
+kubectl port-forward svc/grafana -n base-monitoring 3001:80
 kubectl -n db exec -it mysql-1-7ddb9fddd7-qzgh8 -- bash
 
 CREATE USER 'orc_client_user'@'%' IDENTIFIED BY 'orc_client_password';
@@ -28,3 +31,5 @@ GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'o
 GRANT SELECT ON meta.* TO 'orc_client_user'@'%';
 GRANT SELECT ON ndbinfo.processes TO 'orc_client_user'@'%'; -- Only for NDB Cluster
 GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user'@'%'; -- Only for Group Replication / InnoDB cluster
+
+kubectl run curl-test --rm --image=curlimages/curl --generator=run-pod/v1 -- http://argocd.base-monitoring.svc.cluster.local:8082/metrics

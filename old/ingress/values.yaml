@@ -1,0 +1,10 @@
+subDomain: k3s
+letsEncryptProd: false
+
+ingress-nginx:
+  controller:
+    service:
+      type: ClusterIP
+
+cert-manager:
+  installCRDs: true

@@ -1,0 +1,7 @@
+apiVersion: v3
+name: App of Apps
+description: ArgoCD application containing all others
+type: application
+version: 0.1.0
+
+appVersion: "1.0"

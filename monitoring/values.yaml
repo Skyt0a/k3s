@@ -1,0 +1,16 @@
+grafana:
+  ingress:
+   enabled: true
+   hosts:
+    - monitoring.k3s.bazin-jeremy.com
+
+
+prometheus:
+  extraScrapeConfigs: |
+    - job_name: 'argocd'
+      metrics_path: /metrics
+      params:
+        module: [http_2xx]
+      static_configs:
+        - targets:
+          - argocd.base-monitoring.svc.cluster.local:8082

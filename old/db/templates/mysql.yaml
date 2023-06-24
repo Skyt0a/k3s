@@ -27,7 +27,7 @@ data:
   # file-like keys
   orch.sql: "\n\
 STOP SLAVE;\n\
-CHANGE MASTER TO MASTER_HOST='mysql-1.db.svc.cluster.local', MASTER_USER='replicator', MASTER_PASSWORD='password', GET_MASTER_PUBLIC_KEY=1;\n\
+CHANGE MASTER TO MASTER_HOST='	10.42.0.74', MASTER_USER='replicator', MASTER_PASSWORD='password', GET_MASTER_PUBLIC_KEY=1;\n\
 START SLAVE;\n\
 "
 

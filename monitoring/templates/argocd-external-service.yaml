@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: argocd
+spec:
+  type: ExternalName
+  externalName: argo-cd-argocd-application-controller-metrics.argocd.svc.cluster.local
+  ports:
+  - port: 8082

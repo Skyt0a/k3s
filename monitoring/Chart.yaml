@@ -1,0 +1,15 @@
+apiVersion: v3
+name: Monitoring
+description: Pometheus & Grafana
+type: application
+version: 0.1.0
+appVersion: "1.0"
+
+dependencies:
+- name: grafana
+  version: "6.57.3"
+  repository: "https://grafana.github.io/helm-charts"
+
+- name: prometheus
+  version: "22.6.6"
+  repository: "https://prometheus-community.github.io/helm-charts"

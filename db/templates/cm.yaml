@@ -6,6 +6,6 @@ metadata:
 data:
 
   # file-like keys
-  my.cnf: "
-bind-address            = 0.0.0.0
+  my.cnf: "\n\
+bind-address            = 0.0.0.0\n\
 "

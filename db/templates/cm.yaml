@@ -9,8 +9,8 @@ data:
   my.cnf: "\n\
 [mysqld]
 bind-address            = 0.0.0.0\n\
-server-id = 1
-log_bin = /var/log/mysql/mysql-bin.log
+server-id = 1\n\
+log_bin = /var/log/mysql/mysql-bin.log\n\
 "
 
 ---
@@ -24,8 +24,8 @@ data:
   my.cnf: "\n\
 [mysqld]
 bind-address            = 0.0.0.0\n\
-server-id = 2
-log_bin = /var/log/mysql/mysql-bin.log
+server-id = 2\n\
+log_bin = /var/log/mysql/mysql-bin.log\n\
 "
 
 ---
@@ -64,7 +64,7 @@ GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user
 \n\
 STOP SLAVE;\n\
 CHANGE MASTER TO MASTER_HOST='mysql-1.db.svc.cluster.local', MASTER_USER='replicator', MASTER_PASSWORD='password';\n\
-START SLAVE;
+START SLAVE;\n\
 "
 #MASTER_LOG_FILE='mysql-bin.003577',
     #-> MASTER_LOG_POS=141378624;\n\

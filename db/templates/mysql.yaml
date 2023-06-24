@@ -11,6 +11,7 @@ CREATE USER 'orc_client_user'@'%' IDENTIFIED BY 'orc_client_password';\n\
 GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orc_client_user'@'%';\n\
 GRANT SELECT ON meta.* TO 'orc_client_user'@'%';\n\
 GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user'@'%'; -- Only for Group Replication / InnoDB cluster\n\
+GRANT DROP ON _pseudo_gtid_.* to 'orc_client_user'@'%';\n\
 \n\
 CREATE USER 'replicator'@'%' IDENTIFIED BY 'password';\n\
 GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';\n\

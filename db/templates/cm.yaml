@@ -10,7 +10,7 @@ data:
 [mysqld]
 bind-address            = 0.0.0.0\n\
 server-id = 1\n\
-log_bin = /mysql-bin.log\n\
+log_bin = ~/mysql-bin.log\n\
 "
 
 ---
@@ -25,7 +25,7 @@ data:
 [mysqld]
 bind-address            = 0.0.0.0\n\
 server-id = 2\n\
-log_bin = /mysql-bin.log\n\
+log_bin = ~/mysql-bin.log\n\
 "
 
 ---

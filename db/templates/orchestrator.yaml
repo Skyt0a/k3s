@@ -16,6 +16,17 @@ spec:
       - name: orchestrator
         image: openarkcode/orchestrator:latest
 
+        volumeMounts:
+        - name: mysql-config
+          mountPath: /etc/
+          readOnly: true
+        
+        
+      volumes:
+      - name: orch-config
+        configMap:
+          name: orch-config
+
 ---
 apiVersion: v1
 kind: Service

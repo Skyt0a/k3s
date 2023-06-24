@@ -15,6 +15,17 @@ spec:
       containers:
       - name: orchestrator
         image: openarkcode/orchestrator:latest
+        volumeMounts:
+        - name: orch-config
+          mountPath: /etc/orchestrator.conf.json
+          subPath: orchestrator.conf.json
+          readOnly: true
+        
+        
+      volumes:
+      - name: orch-config
+        configMap:
+          name: orch-config
 
 ---
 apiVersion: v1

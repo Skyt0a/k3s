@@ -61,3 +61,14 @@ START SLAVE;\n\
 "
 #MASTER_LOG_FILE='mysql-bin.003577',
     #-> MASTER_LOG_POS=141378624;\n\
+
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orch-config
+data:
+
+  # file-like keys
+  orchestrator.conf.json: "{  \"HostnameResolveMethod\": \"\",  \"MySQLHostnameResolveMethod\": \"\" }"

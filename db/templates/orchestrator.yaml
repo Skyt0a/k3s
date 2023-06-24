@@ -17,7 +17,7 @@ spec:
         image: openarkcode/orchestrator:latest
 
         volumeMounts:
-        - name: mysql-config
+        - name: orch-config
           mountPath: /etc/
           readOnly: true
         

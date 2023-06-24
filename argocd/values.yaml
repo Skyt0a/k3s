@@ -3,6 +3,17 @@ argocd:
   controller.metrics.enabled: true
 
   # Ingress
+  server.ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+    hosts:
+      - argocd.k3s.bazin-jeremy.com
+    tls:
+      - hosts:
+        - argocd.k3s.bazin-jeremy.com
+        secretName: argocd-tls
 
   dex.enabled: false
 

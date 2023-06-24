@@ -71,8 +71,7 @@ metadata:
 data:
 
   # file-like keys
-  orchestrator.conf.json: "\n\
-{
+  orchestrator.conf.json: "{
   \"Debug\": true,
   \"EnableSyslog\": false,
   \"ListenAddress\": \":3000\",
@@ -218,5 +217,4 @@ data:
   \"ConsulAddress\": \"\",
   \"ConsulAclToken\": \"\",
   \"ConsulKVStoreProvider\": \"consul\"
-}
-"
+}"

@@ -98,10 +98,10 @@ spec:
           name: mysql-config-{{ .name }}
       - name: sql-start
         configMap:
-          {{ if .initial-master }}
+          {{- if .initial-master }}
           name: mysql-master-config
           {{ else }}
           name: mysql-slave-config
-          {{ end }}
+          {{ end -}}
 
 {{ end  }}

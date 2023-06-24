@@ -1,13 +1,13 @@
 mysql:
   instances:
   - name: 1
-    initial-master: true
+    initialMaster: true
   - name: 2
-    initial-master: false
+    initialMaster: false
   - name: 3
-    initial-master: false
+    initialMaster: false
   - name: 4
-    initial-master: false
+    initialMaster: false
   - name: 5
-    initial-master: false
+    initialMaster: false
   

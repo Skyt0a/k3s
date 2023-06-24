@@ -1,8 +1,18 @@
 grafana:
   ingress:
-   enabled: true
-   hosts:
+    enabled: false
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    hosts:
     - monitoring.k3s.bazin-jeremy.com
+    tls:
+    - hosts:
+      - monitoring.k3s.bazin-jeremy.com
+      secretName: grafana-tls
 
 
 prometheus:

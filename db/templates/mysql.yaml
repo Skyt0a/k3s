@@ -45,10 +45,10 @@ spec:
       volumes:
       - name: mysql-config
         configMap:
-          name: mysql-config
+          name: mysql-config-1
       - name: mysql-start-config
         configMap:
-          name: mysql-start-config-1
+          name: mysql-master-config
 
       #   volumeMounts:
       #   - name: mysql-persistent-storage

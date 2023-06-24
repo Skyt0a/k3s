@@ -55,6 +55,11 @@ data:
 
   # file-like keys
   orch.sql: "\n\
+CREATE USER 'orc_client_user'@'%' IDENTIFIED BY 'orc_client_password';\n\
+GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orc_client_user'@'%';\n\
+GRANT SELECT ON meta.* TO 'orc_client_user'@'%';\n\
+GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user'@'%'; -- Only for Group Replication / InnoDB cluster\n\
+\n\
 STOP SLAVE;\n\
 CHANGE MASTER TO MASTER_HOST='mysql-1.db.svc.cluster.local', MASTER_USER='replicator', MASTER_PASSWORD='password', GET_MASTER_PUBLIC_KEY=1;\n\
 START SLAVE;\n\

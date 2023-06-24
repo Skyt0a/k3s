@@ -15,10 +15,10 @@ spec:
       containers:
       - name: orchestrator
         image: openarkcode/orchestrator:latest
-
+        command: ["cp /etc/orchesatrtion/* /etc/ && /entrypoint.sh"]
         volumeMounts:
         - name: orch-config
-          mountPath: /etc/
+          mountPath: /etc/orchestration
           readOnly: true
         
         

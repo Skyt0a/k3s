@@ -35,7 +35,7 @@ spec:
           name: mysql
         volumeMounts:
         - name: config
-          mountPath: /etc/mysql/conf.d
+          mountPath: /etc/mysql/conf.d/
           readOnly: true
         
         

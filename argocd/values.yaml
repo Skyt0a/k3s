@@ -1,6 +1,8 @@
 "argo-cd":
   # Enabled all metric scrap by prometheus
-  controller.metrics.enabled: true
+  controller:
+    metrics:
+      enabled: true
 
   # Ingress
   server:
@@ -19,7 +21,8 @@
         - argocd.k3s.bazin-jeremy.com
         secretName: argocd-tls
 
-  dex.enabled: false
+  dex:
+    enabled: false
 
   # ArgoCD Application status detection
   resource.customizations: |

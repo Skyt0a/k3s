@@ -47,7 +47,8 @@
     rbac:
       policy.default: "role:readonly"
       policy.csv: |
-        g,bazin.jer@gmail.com,role:admin
+        p, role:full-admin, *, /, *, allow
+        g,bazin.jer@gmail.com,role:full-admin
   # ArgoCD Application status detection
   resource.customizations: |
     argoproj.io/Application:

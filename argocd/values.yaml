@@ -21,7 +21,7 @@
         - argocd.k3s.bazin-jeremy.com
         secretName: argocd-tls
 
-  url: https://argocd.k3s.bazin-jeremy.com
+  url: "https://argocd.k3s.bazin-jeremy.com"
   dex:
     enabled: true
 

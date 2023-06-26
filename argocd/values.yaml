@@ -6,6 +6,9 @@
 
   # Ingress
   server:
+    extraArgs: 
+      - "--dex-server-plaintext"
+      - --dex-server http://argocd-dex-server.argocd.svc.cluster.local:5556"
     ingress:
       enabled: true
       ingressClassName: nginx

@@ -26,6 +26,8 @@
 
   dex:
     enabled: true
+    extraArgs:
+      - "--disable-tls"
 
   
   configs:

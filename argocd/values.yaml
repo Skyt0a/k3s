@@ -24,7 +24,6 @@
         - argocd.k3s.bazin-jeremy.com
         secretName: argocd-tls
 
-  admin.enabled: false
   dex:
     enabled: true
     extraArgs:
@@ -32,6 +31,8 @@
   
   configs:
     cm:
+      admin.enabled: false
+      
       exec.enabled: true
       url: "https://argocd.k3s.bazin-jeremy.com"
       dex.config: |

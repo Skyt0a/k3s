@@ -46,7 +46,9 @@
             useLoginAsID: true
 
     rbac:
-      policy.default: "role:admin"
+      policy.default: "role:readonly"
+      policy.csv: |
+        g, bazin.jer@gmail.com, role:admin
   # ArgoCD Application status detection
   resource.customizations: |
     argoproj.io/Application:

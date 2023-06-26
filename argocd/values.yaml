@@ -31,16 +31,16 @@
       exec.enabled: true
 
       dex.config: |
-      connectors:
-        # GitHub example
-        - type: github
-          id: github
-          name: GitHub
-          config:
-            clientID: Iv1.3dea4dba1f7b8aee
-            clientSecret: a6bb0d433aaeae6f17181d725c6a4ccb07bbf7bc 
-            orgs:
-            - name: "@Skyt0a"
+        connectors:
+          # GitHub example
+          - type: github
+            id: github
+            name: GitHub
+            config:
+              clientID: Iv1.3dea4dba1f7b8aee
+              clientSecret: a6bb0d433aaeae6f17181d725c6a4ccb07bbf7bc 
+              orgs:
+              - name: "@Skyt0a"
 
   # ArgoCD Application status detection
   resource.customizations: |

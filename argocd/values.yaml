@@ -48,7 +48,7 @@
     rbac:
       policy.default: "role:readonly"
       policy.csv: |
-        g,Jérémy Bazin, role:admin
+        g, Jérémy Bazin, role:admin
   # ArgoCD Application status detection
   resource.customizations: |
     argoproj.io/Application:

@@ -6,8 +6,6 @@
 
   # Ingress
   server:
-    extraArgs: 
-      - "--insecure-skip-tls-verify"
     ingress:
       enabled: true
       ingressClassName: nginx

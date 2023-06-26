@@ -43,7 +43,6 @@
             config:
               clientID: Iv1.3dea4dba1f7b8aee
               clientSecret: 14b73cd0d3e1fdf046e4992adbf1f7bf43d7a7dc
-            useLoginAsID: true
 
     rbac:
       policy.default: "role:readonly"

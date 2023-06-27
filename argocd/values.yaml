@@ -23,7 +23,7 @@
   
   configs:
     cm:
-      admin.enabled: true
+      admin.enabled: false
       
       exec.enabled: true
       url: "https://argocd.k3s.bazin-jeremy.com"

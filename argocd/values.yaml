@@ -33,7 +33,7 @@
     cm:
       admin.enabled: true
       
-      exec.enabled: false
+      exec.enabled: true
       url: "https://argocd.k3s.bazin-jeremy.com"
 
       oidc.config: |

@@ -56,10 +56,10 @@
         skipAudienceCheckWhenTokenHasNoAudience: true
 
         # Optional set of OIDC scopes to request. If omitted, defaults to: ["openid", "profile", "email", "groups"]
-        requestedScopes: ["profile", "email", "groups"]
+        requestedScopes: ["email"]
 
         # Optional set of OIDC claims to request on the ID token.
-        requestedIDTokenClaims: {"groups": {"essential": true}}
+        # requestedIDTokenClaims: {"groups": {"essential": true}}
 
         # Some OIDC providers require a separate clientID for different callback URLs.
         # For example, if configuring Argo CD with self-hosted Dex, you will need a separate client ID

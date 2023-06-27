@@ -6,9 +6,6 @@
 
   # Ingress
   server:
-    extraArgs: 
-      - "--dex-server-plaintext"
-      - "--dex-server=http://argocd-dex-server.argocd.svc.cluster.local:5556"
     ingress:
       enabled: true
       ingressClassName: nginx
@@ -23,11 +20,6 @@
       - hosts:
         - argocd.k3s.bazin-jeremy.com
         secretName: argocd-tls
-
-  dex:
-    enabled: false
-    extraArgs:
-      - "--disable-tls"
   
   configs:
     cm:

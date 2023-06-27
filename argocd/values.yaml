@@ -48,7 +48,7 @@
         skipAudienceCheckWhenTokenHasNoAudience: true
 
         # Optional set of OIDC scopes to request. If omitted, defaults to: ["openid", "profile", "email", "groups"]
-        requestedScopes: ["openid", "profile", "email", "groups"]
+        requestedScopes: ["openid", "profile", "email"]
 
         # Optional set of OIDC claims to request on the ID token.
         # requestedIDTokenClaims: {"groups": {"essential": true}}

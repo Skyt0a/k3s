@@ -25,7 +25,7 @@
         secretName: argocd-tls
 
   dex:
-    enabled: true
+    enabled: false
     extraArgs:
       - "--disable-tls"
   

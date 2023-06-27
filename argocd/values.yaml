@@ -33,17 +33,8 @@
     cm:
       admin.enabled: false
       
-      exec.enabled: true
+      exec.enabled: false
       url: "https://argocd.k3s.bazin-jeremy.com"
-      dex.config: |
-        connectors:
-          - type: github
-            id: github
-            name: GitHub
-            config:
-              clientID: Iv1.3dea4dba1f7b8aee
-              clientSecret: 14b73cd0d3e1fdf046e4992adbf1f7bf43d7a7dc
-            useLoginAsID: true
 
       oidc.config: |
         name: Gitlab

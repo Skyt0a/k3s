@@ -1,0 +1,18 @@
+nextcloud:
+  nextcloud: 
+    host: nextcloud.k3s.bazin-jeremy.com
+    updatae: 1
+  persistence:
+    enabled: true
+    nextcloudData:
+      enabled: true
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    className: nginx
+    tls:
+    - hosts:
+      - nextcloud.k3s.bazin-jeremy.com
+      secretName: nextcloud-tls

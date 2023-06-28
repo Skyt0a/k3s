@@ -11,7 +11,7 @@ kubectl get nodes
 
 kubectl create namespace argocd
 ./helm repo add argo https://argoproj.github.io/argo-helm
-./helm install -n argocd argo-cd argo/argo-cd --version 5.36.7
+./helm install -n argocd argo-cd argo/argo-cd --version 5.36.6
 #kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 kubectl apply -n argocd -f ./init-argocd.yaml

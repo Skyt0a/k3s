@@ -4,8 +4,10 @@ nextcloud:
     updatae: 1
   persistence:
     enabled: true
+    storageClass: local-storage
     nextcloudData:
       enabled: true
+      storageClass: local-storage
   ingress:
     enabled: true
     annotations:

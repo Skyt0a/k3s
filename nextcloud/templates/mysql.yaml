@@ -58,7 +58,7 @@ bind-address            = 0.0.0.0\n\
 server-id = {{ .name }}\n\
 log_bin = ~/mysql-bin.log\n\
 "
-  hostname: "mysql-{{ .name }}.nextcloud.svc.cluster.local"
+  hostname: "mysql-{{ .name }}"
 
 ---
 apiVersion: apps/v1

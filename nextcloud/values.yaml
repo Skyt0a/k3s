@@ -4,12 +4,6 @@ mysql:
     initialMaster: true
   - name: 2
     initialMaster: false
-  - name: 3
-    initialMaster: false
-  - name: 4
-    initialMaster: false
-  - name: 5
-    initialMaster: false
   
 
 nextcloud:

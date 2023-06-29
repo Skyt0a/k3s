@@ -51,26 +51,26 @@ spec:
       targetPort: 3000
 
 ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: ingress-orchestrator
-#   annotations:
-#     cert-manager.io/cluster-issuer: "letsencrypt"
-# spec:
-#   tls:
-#   - hosts:
-#     - orchestrator.k3s.bazin-jeremy.com
-#     secretName: orchestrator-tls
-#   rules:
-#   - host: orchestrator.k3s.bazin-jeremy.com
-#     http:
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: orchestrator-svc
-#             port:
-#               number: 80
-#   ingressClassName: nginx
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-orchestrator
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  tls:
+  - hosts:
+    - orchestrator.k3s.bazin-jeremy.com
+    secretName: orchestrator-tls
+  rules:
+  - host: orchestrator.k3s.bazin-jeremy.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: orchestrator-svc
+            port:
+              number: 80
+  ingressClassName: nginx

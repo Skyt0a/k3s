@@ -4,20 +4,6 @@ mysql:
     initialMaster: true
   - name: 2
     initialMaster: false
-  - name: 3
-    initialMaster: false
-  - name: 4
-    initialMaster: false
-  - name: 5
-    initialMaster: false
-  - name: 6
-    initialMaster: false
-  - name: 7
-    initialMaster: false
-  - name: 8
-    initialMaster: false
-  - name: 9
-    initialMaster: false
     
   
 

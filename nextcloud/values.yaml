@@ -31,7 +31,7 @@ nextcloud:
   externalDatabase:
     enabled: true
     host: mysql-1.nextcloud.svc.cluster.local
-    database: mysql-1.nextcloud.svc.cluster.local
+    database: nextcloud
     user: root
     password: password
     type: mysql

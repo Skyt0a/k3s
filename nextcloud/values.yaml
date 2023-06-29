@@ -1,3 +1,17 @@
+mysql:
+  instances:
+  - name: 1
+    initialMaster: true
+  - name: 2
+    initialMaster: false
+  - name: 3
+    initialMaster: false
+  - name: 4
+    initialMaster: false
+  - name: 5
+    initialMaster: false
+  
+
 nextcloud:
   nextcloud: 
     host: nextcloud.k3s.bazin-jeremy.com
@@ -18,3 +32,9 @@ nextcloud:
     - hosts:
       - nextcloud.k3s.bazin-jeremy.com
       secretName: nextcloud-tls
+  internalDatabase:
+   enabled: false
+  externalDatabase:
+   enabled: true
+   type: mysql
+   host: mysql-1.nextcloud.svc.cluster.local

@@ -1,0 +1,113 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-master-config
+data:
+
+  # file-like keys
+  orch.sql: "\n\
+CREATE USER 'orc_client_user'@'%' IDENTIFIED BY 'orc_client_password';\n\
+GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orc_client_user'@'%';\n\
+GRANT SELECT ON meta.* TO 'orc_client_user'@'%';\n\
+GRANT SELECT ON performance_schema.replication_group_members TO 'orc_client_user'@'%'; -- Only for Group Replication / InnoDB cluster\n\
+GRANT DROP ON _pseudo_gtid_.* to 'orc_client_user'@'%';\n\
+\n\
+CREATE USER 'replicator'@'%' IDENTIFIED BY 'password';\n\
+GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';\n\
+"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-slave-config
+data:
+
+  # file-like keys
+  orch.sql: "\n\
+STOP SLAVE;\n\
+CHANGE MASTER TO MASTER_HOST='mysql-1.nextcloud.svc.cluster.local', MASTER_USER='replicator', MASTER_PASSWORD='password', GET_MASTER_PUBLIC_KEY=1;\n\
+START SLAVE;\n\
+"
+
+{{ range $.Values.mysql.instances }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-{{ .name }}
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app:  mysql-{{ .name }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config-{{ .name }}
+data:
+
+  # file-like keys
+  my.cnf: "\n\
+[mysqld]
+bind-address            = 0.0.0.0\n\
+server-id = {{ .name }}\n\
+log_bin = ~/mysql-bin.log\n\
+"
+  hostname: "mysql-{{ .name }}.nextcloud.svc.cluster.local"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  mysql-{{ .name }}
+spec:
+  selector:
+    matchLabels:
+      app:  mysql-{{ .name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app:  mysql-{{ .name }}
+    spec:
+      containers:
+      - image: mysql:latest
+        name:  mysql-{{ .name }}
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: config
+          mountPath: /etc/mysql/conf.d/
+          readOnly: true
+        - name: sql-start
+          mountPath: /docker-entrypoint-initdb.d/
+          readOnly: true
+        - name: config
+          mountPath: /etc/hostname
+          subPath: hostname
+          readOnly: true
+        
+        
+      volumes:
+      - name: config
+        configMap:
+          name: mysql-config-{{ .name }}
+      - name: sql-start
+        configMap:
+          {{ if .initialMaster }}
+            name: mysql-master-config
+          {{ else }}
+            name: mysql-slave-config
+          {{ end }}
+
+{{ end }}

@@ -1,10 +1,10 @@
-docker run --privileged --name k3s-server-1 --net=k3s --hostname k3s-server-1 -p 6443:6443 -v //e/raspberry/kubernetes/data/node-1:/data -d rancher/k3s:latest server --disable=traefik --disable=servicelb
+docker run --privileged --name k3s-server-1 --net=k3s --hostname k3s-server-1 -p 6443:6443 -v //e/raspberry/kubernetes/data/node-1:/opt/local-path-provisioner -d rancher/k3s:latest server --disable=traefik --disable=servicelb
 sleep 5
 docker cp k3s-server-1:/etc/rancher/k3s/k3s.yaml ./kube-config
 docker cp k3s-server-1:/var/lib/rancher/k3s/server/token ./token
 export KUBECONFIG=kube-config
 
-docker run -d --privileged --name k3s-server-2 --net=k3s --hostname k3s-server-2 -v //e/raspberry/kubernetes/data/node-2:/data -e K3S_TOKEN=$(cat token) -e K3S_URL=https://k3s-server-1:6443 rancher/k3s:latest agent
+docker run -d --privileged --name k3s-server-2 --net=k3s --hostname k3s-server-2 -v //e/raspberry/kubernetes/data/node-2:/opt/local-path-provisioner -e K3S_TOKEN=$(cat token) -e K3S_URL=https://k3s-server-1:6443 rancher/k3s:latest agent
 
 sleep 5
 kubectl get nodes

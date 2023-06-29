@@ -72,5 +72,5 @@ spec:
           service:
             name: orchestrator-svc
             port:
-              number: 80
+              number: 3000
   ingressClassName: nginx

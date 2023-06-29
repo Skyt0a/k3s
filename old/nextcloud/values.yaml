@@ -4,7 +4,7 @@ nextcloud:
     updatae: 1
   persistence:
     enabled: true
-    storageClass: local-data-path
+    storageClass: local-path
   ingress:
     enabled: true
     annotations:

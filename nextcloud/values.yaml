@@ -33,8 +33,11 @@ nextcloud:
       - nextcloud.k3s.bazin-jeremy.com
       secretName: nextcloud-tls
   internalDatabase:
-   enabled: false
+    enabled: false
   externalDatabase:
-   enabled: true
-   type: mysql
-   host: mysql-1.nextcloud.svc.cluster.local
+    enabled: true
+    host: mysql-1.nextcloud.svc.cluster.local
+    database: mysql-1.nextcloud.svc.cluster.local
+    user: root
+    password: password
+    type: mysql

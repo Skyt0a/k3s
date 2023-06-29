@@ -14,11 +14,9 @@ nextcloud:
   persistence:
     enabled: true
     storageClass: local-path
-    subPath: /opt/local-path-provisioner/nextcloud
     nextcloudData:
       enabled: true
       storageClass: local-path
-      subPath: /opt/local-path-provisioner/nextcloud-data
   ingress:
     enabled: true
     annotations:

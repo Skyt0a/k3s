@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: https://nextcloud.github.io/helm/
     targetRevision: 3.5.19
-    path: nextcloud
+    chart: nextcloud
   destination:
     server: https://kubernetes.default.svc
     namespace: nextcloud

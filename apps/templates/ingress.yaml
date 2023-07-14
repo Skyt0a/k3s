@@ -2,24 +2,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress
+  name: network-ingress
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 spec:
-  project: default
+  project: network
   source:
-    repoURL: https://github.com/Skyt0a/k3s.git
+    repoURL: "https://github.com/Skyt0a/k3s.git"
     targetRevision: HEAD
     path: ingress
   destination:
-    server: https://kubernetes.default.svc
+    server: "https://kubernetes.default.svc"
     namespace: base-ingress
   syncPolicy:
     automated:
       prune: true
-      selfHeal: false
-    syncOptions:
-      - CreateNamespace=true
+      selfHeal: true

@@ -10,10 +10,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "10"
 spec:
   project: default
-  source:
-    repoURL: https://nextcloud.github.io/helm/
-    targetRevision: 3.5.19
-    chart: nextcloud
+
   destination:
     server: https://kubernetes.default.svc
     namespace: nextcloud
@@ -23,3 +20,11 @@ spec:
       selfHeal: false
     syncOptions:
       - CreateNamespace=true
+  source:
+    repoURL: https://nextcloud.github.io/helm/
+    targetRevision: 3.5.19
+    chart: nextcloud
+    helm:
+      parameters:
+        - name: nextcloud.host
+          value: nextcloud.k3s.bazin-jeremy.com

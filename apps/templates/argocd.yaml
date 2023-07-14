@@ -6,20 +6,97 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: "5"
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/Skyt0a/k3s.git
-    targetRevision: HEAD
-    path: argocd
+  project: argocd
   destination:
-    server: https://kubernetes.default.svc
+    server: "https://kubernetes.default.svc"
     namespace: argocd
   syncPolicy:
     automated:
       prune: true
-      selfHeal: false
-    syncOptions:
-      - CreateNamespace=true
+      selfHeal: true
+  source:
+    repoURL: "https://argoproj.github.io/argo-helm"
+    targetRevision: "5.39.0"
+    chart: argo-cd
+    helm:
+      values: |
+        # Enabled all metric scrap by prometheus
+        controller:
+          metrics:
+            enabled: false
+
+        # Ingress
+        server:
+          ingress:
+            enabled: true
+            ingressClassName: nginx
+            annotations:
+              cert-manager.io/cluster-issuer: letsencrypt
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hosts:
+            - argocd.k3s.bazin-jeremy.com
+            tls:
+            - hosts:
+              - argocd.k3s.bazin-jeremy.com
+              secretName: argocd-tls
+        
+        configs:
+          cm:
+            admin.enabled: false
+            
+            exec.enabled: true
+            url: "https://argocd.k3s.bazin-jeremy.com"
+
+            oidc.config: |
+              name: Gitlab
+              issuer: https://gitlab.com
+              clientID: 50809e9d381052b6c3c79493359f3f8bc1805893aaf62177eb4854c56d80d89b
+              clientSecret: 40025d6521b50be73d9d17dc1c0998431a670cd41ca563424e746fa8575e17ba
+
+              # Optional list of allowed aud claims. If omitted or empty, defaults to the clientID value above (and the 
+              # cliClientID, if that is also specified). If you specify a list and want the clientID to be allowed, you must 
+              # explicitly include it in the list.
+              # Token verification will pass if any of the token's audiences matches any of the audiences in this list.
+              # allowedAudiences:
+              # - aaaabbbbccccddddeee
+              # - qqqqwwwweeeerrrrttt
+
+              # Optional. If false, tokens without an audience will always fail validation. If true, tokens without an audience 
+              # will always pass validation.
+              # Defaults to true for Argo CD < 2.6.0. Defaults to false for Argo CD >= 2.6.0.
+              skipAudienceCheckWhenTokenHasNoAudience: true
+
+              # Optional set of OIDC scopes to request. If omitted, defaults to: ["openid", "profile", "email", "groups"]
+              requestedScopes: ["openid", "profile", "email"]
+
+              # Optional set of OIDC claims to request on the ID token.
+              # requestedIDTokenClaims: {"groups": {"essential": true}}
+
+              # Some OIDC providers require a separate clientID for different callback URLs.
+              # For example, if configuring Argo CD with self-hosted Dex, you will need a separate client ID
+              # for the 'localhost' (CLI) client to Dex. This field is optional. If omitted, the CLI will
+              # use the same clientID as the Argo CD server
+              # cliClientID: vvvvwwwwxxxxyyyyzzzz
+
+          rbac:
+            policy.default: "role:admin"
+        # ArgoCD Application status detection
+        resource.customizations: |
+          argoproj.io/Application:
+            health.lua: |
+              hs = {}
+              hs.status = "Progressing"
+              hs.message = ""
+              if obj.status ~= nil then
+                if obj.status.health ~= nil then
+                  hs.status = obj.status.health.status
+                  if obj.status.health.message ~= nil then
+                    hs.message = obj.status.health.message
+                  end
+                end
+              end
+              return hs
+          

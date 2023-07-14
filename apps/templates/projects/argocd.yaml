@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: 'argocd'
+    server: '*'
+  clusterResourceWhitelist:
+  - group: 'rbac.authorization.k8s.io'
+    kind: 'CustomResourceDefinition'
+  - group: 'rbac.authorization.k8s.io'
+    kind: 'ClusterRoleBinding'
+  - group: 'rbac.authorization.k8s.io'
+    kind: 'ClusterRole'
+  - group: 'apiextensions.k8s.io'
+    kind: 'CustomResourceDefinition'

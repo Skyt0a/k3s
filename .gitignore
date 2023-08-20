@@ -3,3 +3,4 @@ helm.exe
 kubectl.exe
 kube-config
 token
+data

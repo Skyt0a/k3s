@@ -1,0 +1,79 @@
+---
+- name: Setup
+  hosts: k3s
+
+  tasks:
+  - name: Ping
+    ping:
+      
+  - name: APT update
+    become: true
+    register: updatesys
+    apt:
+      update_cache: yes
+  
+  - name: Install Longhorn deps
+    become: true
+    apt:
+      name: 
+      - bash
+      - curl
+      - grep
+      - open-iscsi
+      - nfs-common
+      state: present
+
+  - name: Disk dir
+    become: true
+    file:
+      path: /disk
+      state: directory
+      mode: 005
+
+  - name: Disk Toshiba2To
+    become: true
+    file:
+      path: /disk/Toshiba2To
+      state: directory
+      mode: 007
+
+  - name: Mount Toshiba2To
+    become: true
+    ansible.posix.mount:
+      src: /dev/sda
+      path: /disk/Toshiba2To
+      fstype: ext4
+      state: mounted
+
+  - name: open-iscsid start
+    service:
+      name: open-iscsid
+      state: started
+
+
+  - name: nfs-common start
+    service:
+      name: nfs-common
+      state: started
+
+- name: Setup k3s
+  hosts: k3s
+  roles:
+    - xanmanning.k3s
+  vars:
+    k3s_become: true
+    k3s_state: installed
+    k3s_config_file: /etc/rancher/k3s/config.yaml
+    k3s_server:
+      disable:
+      - traefik
+      - servicelbd
+
+- name: Read Config
+  hosts: k3s
+  tasks:
+    - name: "cat config"
+      become: true
+      command: /bin/cat /etc/rancher/k3s/k3s.yaml
+      register: config
+    - debug: msg="{{ config.stdout }}"

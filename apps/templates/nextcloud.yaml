@@ -2,14 +2,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nextcloud
+  name: nextcloud-app
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: "10"
 spec:
-  project: default
+  project: nextcloud
 
   destination:
     server: https://kubernetes.default.svc
@@ -22,9 +20,36 @@ spec:
       - CreateNamespace=true
   source:
     repoURL: https://nextcloud.github.io/helm/
-    targetRevision: 3.5.19
+    targetRevision: 3.5.x
     chart: nextcloud
     helm:
-      parameters:
-        - name: nextcloud.host
-          value: nextcloud.k3s.bazin-jeremy.com
+      values: |
+        nextcloud: 
+          host: nextcloud.k3s.bazin-jeremy.com
+          update: 1
+          configs:
+            rpm.config.php: |
+              <?php
+              $CONFIG = array (
+                'trusted_proxies' => ['0.0.0.0/0'],
+              );
+        persistence:
+          enabled: true
+          storageClass: longhorn
+          size: 8Gi
+          nextcloudData:
+            enabled: true
+            storageClass: longhorn
+            size: 8Gi
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          className: nginx
+          tls:
+          - hosts:
+            - nextcloud.k3s.bazin-jeremy.com
+            secretName: nextcloud-tls
+        internalDatabase:
+          enabled: true

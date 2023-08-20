@@ -17,7 +17,7 @@ spec:
       selfHeal: true
   source:
     repoURL: "https://argoproj.github.io/argo-helm"
-    targetRevision: "5.39.0"
+    targetRevision: "5.43.x"
     chart: argo-cd
     helm:
       values: |
@@ -83,6 +83,8 @@ spec:
 
           rbac:
             policy.default: "role:admin"
+        dex:
+          enabled: false
         # ArgoCD Application status detection
         resource.customizations: |
           argoproj.io/Application:

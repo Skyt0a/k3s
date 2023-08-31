@@ -18,14 +18,14 @@ dial_server_timeout = 60\n
 \n
 [{{ $v.name }}-http]\n
 type = http\n
-local_ip = {{ .Release.Name }}-ingress-nginx-controller\n
+local_ip = network-ingress-ingress-nginx-controller\n
 local_port = 80\n
 remote_port = 80\n
 custom_domains = {{ $v.domain }}\n
 
 [{{ $v.name }}-https]\n
 type = https\n
-local_ip = {{ .Release.Name }}-ingress-nginx-controller\n
+local_ip = network-ingress-ingress-nginx-controller\n
 local_port = 443\n
 remote_port = 443\n
 custom_domains = {{ $v.domain }}\n

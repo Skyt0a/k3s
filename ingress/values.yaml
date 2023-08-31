@@ -1,6 +1,14 @@
 subDomain: k3s
 letsEncryptProd: false
 
+domains:
+  - name: k3s
+    domain: k3s.bazin-jeremy.com
+  - name: k3s-wildcard
+    domain: "*.k3s.bazin-jeremy.com"
+  - name: nextcloud-kubernetes
+    domain: nc.bazin-jeremy.com
+
 "ingress-nginx":
   controller:
     service:

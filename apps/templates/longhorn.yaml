@@ -8,12 +8,12 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: longhorn-system
+    namespace: longhorn
     server: 'https://kubernetes.default.svc'
   source:
     path: ''
     repoURL: 'https://charts.longhorn.io'
-    targetRevision: 1.5.1
+    targetRevision: 1.4.x
     chart: longhorn
     helm:
       parameters:
@@ -23,8 +23,6 @@ spec:
           value: longhorn.k3s.bazin-jeremy.com
         - name: ingress.ingressClassName
           value: nginx
-        - name: csi.kubeletRootDir
-          value: /var/lib/rancher/k3s/
         - name: defaultSettings.defaultReplicaCount
           value: '1'
         - name: longhornUI.replicas

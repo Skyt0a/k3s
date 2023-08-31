@@ -14,21 +14,21 @@ tls_enable = true\n
 dial_server_timeout = 60\n
 \n
 
-{{- range .Values.domains }}
+{{- range $v := .Values.domains }}
 \n
-[{{ .name }}-http]\n
+[{{ $v.name }}-http]\n
 type = http\n
 local_ip = {{ .Release.Name }}-ingress-nginx-controller\n
 local_port = 80\n
 remote_port = 80\n
-custom_domains = {{ .domain }}\n
+custom_domains = {{ $v.domain }}\n
 
-[{{ .name }}-https]\n
+[{{ $v.name }}-https]\n
 type = https\n
 local_ip = {{ .Release.Name }}-ingress-nginx-controller\n
 local_port = 443\n
 remote_port = 443\n
-custom_domains = {{ .domain }}\n
+custom_domains = {{ $v.domain }}\n
 \n
 {{- end}}
 "

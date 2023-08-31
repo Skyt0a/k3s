@@ -1,9 +1,10 @@
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: argocd
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -51,10 +52,10 @@ spec:
             url: "https://argocd.k3s.bazin-jeremy.com"
 
             oidc.config: |
-              name: Gitlab
-              issuer: https://gitlab.com
-              clientID: 50809e9d381052b6c3c79493359f3f8bc1805893aaf62177eb4854c56d80d89b
-              clientSecret: 40025d6521b50be73d9d17dc1c0998431a670cd41ca563424e746fa8575e17ba
+              name: Github
+              issuer: https://token.actions.githubusercontent.com
+              clientID: Iv1.55acc6eb6ae026a0
+              clientSecret: 26c2627d55304e669000f97d5cf51d1fb3d77117
 
               # Optional list of allowed aud claims. If omitted or empty, defaults to the clientID value above (and the 
               # cliClientID, if that is also specified). If you specify a list and want the clientID to be allowed, you must 

@@ -13,6 +13,8 @@ domains:
   controller:
     service:
       type: ClusterIP
+    config:
+      proxy-body-size: "100m"
 
 "cert-manager":
   installCRDs: true

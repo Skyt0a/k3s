@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
       - name: fprc
-        image: snowdreamtech/frpc:latest
+        image: snowdreamtech/frpc:0.51.3
         resources:
           limits:
             memory: "128Mi"

@@ -18,3 +18,4 @@ domains:
 
 "cert-manager":
   installCRDs: true
+  renewBefore: 1440h
